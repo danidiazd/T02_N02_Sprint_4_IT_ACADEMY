@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/fruita")
 public class FruitaController {
@@ -35,5 +37,15 @@ public class FruitaController {
             responseEntity = ResponseEntity.internalServerError().build();
         }
         return responseEntity;
+    }
+
+    @GetMapping("/getOne/{id}")
+    public ResponseEntity<Fruita> getOneFruit(@PathVariable("id") int id) {
+        return ResponseEntity.ok().body(this.fruitaService.getOne(id));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Fruita>> getAllFruits() {
+        return ResponseEntity.ok().body(this.fruitaService.getAll());
     }
 }
